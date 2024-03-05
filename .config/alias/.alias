@@ -1,0 +1,36 @@
+if command -v nvim >/dev/null; then
+    alias vi="nvim"
+fi
+
+if command -v eza &> /dev/null; then
+    alias ls="eza -F --group-directories-first"
+    alias tree="eza --tree"
+else
+    alias ls="ls -F --group-directories-first"
+fi
+
+alias cl="clear"
+
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ll="ls -l"
+alias lla="ls -lA"
+alias la="ls -A"
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+alias rr="rm -r"
+alias rrf="rm -rf"
+alias tl="tmux ls"
+alias ta="tmux attach || tmux"
+alias td="tmux detach"
+alias pg="ps -ef|grep"
+alias k9="kill -9"
+alias rg="rg --hidden --glob '!.git'"
+
+alias less="less -R --incsearch --use-color"
+
+# cd with wslpath
+cdw () {
+    cd "`wslpath "$1"`"
+}
