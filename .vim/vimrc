@@ -25,15 +25,10 @@ set wildmenu
 set wildmode=longest:full,full
 
 " Persistent undo
-if has('nvim')
-    " Useful with vim-gitgutter
-    set updatetime=100
-else
-    set undodir=$XDG_DATA_HOME/vim/undo
-    set directory=$XDG_DATA_HOME/vim/swap
-    set backupdir=$XDG_DATA_HOME/vim/backup
-    set viminfo+=n$XDG_DATA_HOME/vim/viminfo
-endif
+set undodir=$XDG_DATA_HOME/vim/undo
+set directory=$XDG_DATA_HOME/vim/swap
+set backupdir=$XDG_DATA_HOME/vim/backup
+set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set undofile
 set undolevels=100000
 set undoreload=100000

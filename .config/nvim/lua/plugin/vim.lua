@@ -75,6 +75,9 @@ vim.opt.wrap = false
 -- Allow the cursor to move just past the end of the line
 vim.opt.virtualedit = 'onemore'
 
+-- Syntax highlighting that are not supported
+vim.cmd('syntax on')
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -122,8 +125,16 @@ vim.keymap.set('n', '<PageUp>', '<PageUp>zz')
 vim.keymap.set('n', '<PageDown>', '<PageDown>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
+
 -- Remap C-c to Esc
 vim.keymap.set('i', '<C-c>', '<Esc>')
+
+-- Save file
+vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
+
+-- Indenting to remain in visual mode
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 -- Toggle line number
 vim.keymap.set('n', '<C-n>', '<cmd>set nonu! nornu!<CR>', { desc = 'Toggle line [N]umber' })
@@ -133,17 +144,17 @@ vim.keymap.set('n', '<Leader>vb', '<C-v>', { desc = '[V]isual [Block] mode' })
 
 -- Toggle virtual edit mode between onemore and all
 vim.keymap.set('n', '<Leader>ve',
-    function()
-        if vim.o.virtualedit == 'onemore' then
-            print('virtualedit=all')
-            vim.opt.virtualedit = 'all'
-        else
-            print('virtualedit=onemore')
-            vim.opt.virtualedit = 'onemore'
-        end
-    end,
-    -- Since Lua function don't have a useful string representation, you can use the "desc" option to document your mapping
-    {desc = 'Prints "Toggle [V]irtual[E]dit mode between onemore and all'}
+  function()
+    if vim.o.virtualedit == 'onemore' then
+      print('virtualedit=all')
+      vim.opt.virtualedit = 'all'
+    else
+      print('virtualedit=onemore')
+      vim.opt.virtualedit = 'onemore'
+    end
+  end,
+  -- Since Lua function don't have a useful string representation, you can use the "desc" option to document your mapping
+  {desc = 'Toggle [V]irtual[E]dit mode between onemore and all'}
 )
 
 -- Delete line and insert
@@ -151,7 +162,7 @@ vim.keymap.set('n', '<Leader>dd', '^d$a', { desc = 'Delete line and insert' })
 -- Delete all lines and insert
 vim.keymap.set('n', '<Leader>da', 'ggdGi', { desc = '[D]elete [A]ll lines and insert' })
 -- Search and replace the word under the cursor
-vim.keymap.set('n', '<Leader>sr', '[[<cmd>%s/<C-r><C-w>//g<Left><Left>]]', { desc = '[S]earch and [R]eplace the word under the cursor' })
+vim.keymap.set('n', '<Leader>sr', [[:%s/<C-r><C-w>//g<Left><Left>]], { desc = '[S]earch and [R]eplace the word under the cursor' })
 
 -- Copy File Name/Path to unamed register - p to paste
 vim.keymap.set('n', '<Leader>cf', '<cmd>let @" = expand("%")<CR>', { desc = '[C]opy [F]ile' })
@@ -170,12 +181,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
--- Customizing commands for fzf.vim
--- vimscript: command! -bang -nargs=* Rg call fzf#vim#grep("rg --hidden --glob '!.git' --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
--- to lua:
-vim.api.nvim_create_user_command(
-  'Rg',
-  'call fzf#vim#grep("rg --hidden --glob \'!.git\' --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)',
-  {bang = true, nargs = '*' }
-)

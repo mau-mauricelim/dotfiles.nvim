@@ -1,2 +1,2 @@
-require('user.vim')
-require('user.lazy')
+require('plugin.vim')
+require('plugin.lazy')
