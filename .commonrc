@@ -27,6 +27,24 @@ for file in $XDG_CONFIG_HOME/{alias,q}/.[!.]*; do
 done
 unset file
 
+# Highlighting --help messages with bat
+if command -v bat >/dev/null; then
+    # Ensure help language is installed
+    if bat --list-languages | grep -wq help; then
+        # Example: $ help cp or $ help git commit
+        help() {
+            "$@" --help 2>&1 | bat --plain --language=help
+        }
+        # When you are using zsh, you can also use global aliases to override -h and --help entirely:
+        # Example: cp --help
+        # Be aware that in some cases, -h may not be a shorthand of --help (for example with ls).
+        if [[ -n "${ZSH_VERSION:-}" ]]; then
+            alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+            alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+        fi
+    fi
+fi
+
 # fzf setup
 if [[ -n "${BASH_VERSION:-}" ]]; then
     [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash

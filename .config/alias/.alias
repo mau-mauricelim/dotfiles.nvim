@@ -11,6 +11,15 @@ else
     alias ls="ls --group-directories-first"
 fi
 
+if command -v bat &> /dev/null; then
+    # bat in plain style and disables automatic paging
+    alias cat="bat -pp"
+    alias less="bat --paging=always --style=header,grid"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+else
+    alias less="less -R --incsearch --use-color"
+fi
+
 alias cl="clear"
 
 alias ...="cd ../.."
@@ -29,8 +38,6 @@ alias td="tmux detach"
 alias pg="ps -ef|grep"
 alias k9="kill -9"
 alias rg="rg --hidden --glob '!.git'"
-
-alias less="less -R --incsearch --use-color"
 
 # cd with wslpath
 cdw () {

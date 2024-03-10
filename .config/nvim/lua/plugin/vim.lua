@@ -81,6 +81,9 @@ vim.cmd('syntax on')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- List of all commands for each mode
+-- :h index
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -139,6 +142,9 @@ vim.keymap.set('v', '>', '>gv')
 -- Toggle line number
 vim.keymap.set('n', '<C-n>', '<cmd>set nonu! nornu!<CR>', { desc = 'Toggle line [N]umber' })
 
+-- Sentence case word
+vim.keymap.set('n', '<Leader>gs', 'guiwv~', { desc = '[S]entence case word' })
+
 -- Visual block mode - suppress the default <C-c>/<C-v> mapping specifically for WSL
 vim.keymap.set('n', '<Leader>vb', '<C-v>', { desc = '[V]isual [Block] mode' })
 
@@ -180,4 +186,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+
+-- Disable auto comment new lines
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '',
+  command = 'set fo-=c fo-=r fo-=o'
 })

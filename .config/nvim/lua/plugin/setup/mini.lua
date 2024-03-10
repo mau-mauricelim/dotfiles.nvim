@@ -20,6 +20,35 @@ return { -- Collection of various small independent plugins/modules
     -- Automatic highlighting of word under cursor
     require('mini.cursorword').setup()
 
+    -- Highlight patterns in text
+    -- Helper functions to get pattern for standalone texts in upper, sentence and lower case
+    local function standalone(text) '%f[%w]()' .. text .. '()%f[%W]' end
+    local function getPattern(texts)
+      local pattern = {}
+      for _, text in ipairs(texts) do
+        local lower = string.lower(text)
+        table.insert(pattern, standalone(string.upper(text)))
+        table.insert(pattern, standalone(lower:sub(1,1):upper() .. lower:sub(2)))
+        table.insert(pattern, standalone(lower))
+      end
+      return pattern
+    end
+
+    local hipatterns = require('mini.hipatterns')
+    hipatterns.setup({
+      highlighters = {
+        -- Highlight standalone texts 'FIXME', 'ERROR', 'HACK', 'WARN', 'TODO', 'INFO', 'NOTE', 'DEBUG', 'TEST'
+        -- 'ERROR', 'Error', 'error'
+        fixme = { pattern = getPattern({ 'FIXME', 'ERROR' }),        group = 'MiniHipatternsFixme' },
+        hack  = { pattern = getPattern({ 'HACK', 'WARN' }),          group = 'MiniHipatternsHack' },
+        todo  = { pattern = getPattern({ 'TODO', 'INFO' }),          group = 'MiniHipatternsTodo' },
+        note  = { pattern = getPattern({ 'NOTE', 'DEBUG', 'TEST' }), group = 'MiniHipatternsNote' },
+
+        -- Highlight hex color strings (`#rrggbb`) using that color
+        hex_color = hipatterns.gen_highlighter.hex_color(),
+      },
+    })
+
     -- "f, F, t, T, ;" to Jump to next/previous single character
     require('mini.jump').setup()
     -- "Enter" to jump within visible lines via iterative label filtering
@@ -41,6 +70,18 @@ return { -- Collection of various small independent plugins/modules
     vim.keymap.set('n', '<Leader>mt', MiniMap.toggle, { desc = '[M]iniMap [T]oggle' })
     -- autoopen functionality
     vim.cmd('autocmd vimenter * lua MiniMap.open()')
+
+    -- Move any selection in any direction
+    -- Defaults are Alt (Meta) + hjkl
+    require('mini.move').setup()
+    -- Map Alt (Meta) + hjkl to arrow keys
+    vim.keymap.set({ 'v', 'n' }, '<M-left>',  '<M-h>', { desc = 'Move selection left',  remap = true })
+    vim.keymap.set({ 'v', 'n' }, '<M-right>', '<M-l>', { desc = 'Move selection right', remap = true })
+    vim.keymap.set({ 'v', 'n' }, '<M-down>',  '<M-j>', { desc = 'Move selection down',  remap = true })
+    vim.keymap.set({ 'v', 'n' }, '<M-up>',    '<M-k>', { desc = 'Move selection up',    remap = true })
+
+    -- Minimal and fast autopairs
+    require('mini.pairs').setup()
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     --
@@ -67,27 +108,6 @@ statusline.setup()
 statusline.section_location = function()
   return '%2l:%-2v'
 end
---]]
-
--- Highlight patterns in text
---[[ Similar to folke/todo-comments.nvim
-local hipatterns = require('mini.hipatterns')
-hipatterns.setup({
-  highlighters = {
-    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-    fixme = { pattern = {'%f[%w]()FIXME()%f[%W]', '%f[%w]()Fixme()%f[%W]', '%f[%w]()fixme()%f[%W]' },
-          group = 'MiniHipatternsFixme' },
-    hack  = { pattern = {'%f[%w]()HACK()%f[%W]',  '%f[%w]()Hack()%f[%W]',  '%f[%w]()hack()%f[%W]'  },
-          group = 'MiniHipatternsHack'  },
-    todo  = { pattern = {'%f[%w]()TODO()%f[%W]',  '%f[%w]()Todo()%f[%W]',  '%f[%w]()todo()%f[%W]'  },
-          group = 'MiniHipatternsTodo'  },
-    note  = { pattern = {'%f[%w]()NOTE()%f[%W]',  '%f[%w]()Note()%f[%W]',  '%f[%w]()note()%f[%W]'  },
-          group = 'MiniHipatternsNote'  },
-
-    -- Highlight hex color strings (`#rrggbb`) using that color
-    hex_color = hipatterns.gen_highlighter.hex_color(),
-  },
-})
 --]]
 
 -- Show next key clues

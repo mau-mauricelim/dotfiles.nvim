@@ -1,3 +1,5 @@
+-- Useful to search files with different path
+-- :Files [PATH]
 return { -- fzf/Vim integration
   'junegunn/fzf.vim',
   event = 'VeryLazy',
