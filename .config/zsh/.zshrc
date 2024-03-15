@@ -10,7 +10,7 @@ autoload -Uz promptinit
 promptinit
 prompt adam1
 
-setopt histignorealldups sharehistory autocd
+setopt histignorealldups sharehistory autocd interactive_comments
 
 # Characters part of a word. Default is "*?_-.[]~=/&;!#$%^(){}<>"
 WORDCHARS="_-.[]~/;!#%^(){}<>"

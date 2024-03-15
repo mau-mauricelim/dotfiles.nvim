@@ -9,7 +9,7 @@ return { -- You can easily change to a different colorscheme.
   config = function()
     -- Setup if any
     require('onedark').setup {
-      style = 'darker'
+      style = 'cool',
     }
 
     -- Load the colorscheme here

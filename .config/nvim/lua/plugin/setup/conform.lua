@@ -1,16 +1,15 @@
--- Here is a more advanced example where we pass configuration options to a plugin
--- This is equivalent to the following lua:
---  require('<plugin>').setup({ ... })
---
 return { -- Autoformat
   'stevearc/conform.nvim',
-  event = 'VeryLazy',
-  opts = {
-    notify_on_error = false,
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
+  -- event = { 'BufWritePre' },
+  cmd = { 'ConformInfo' },
+  keys = {
+    { '<leader>fb',
+      function() require('conform').format({ async = true, lsp_fallback = true }) end,
+      desc = '[F]ormat [b]uffer',
     },
+  },
+  opts = {
+    -- Define your formatters
     formatters_by_ft = {
       lua    = { 'stylua' },
       -- Conform can also run multiple formatters sequentially
@@ -27,5 +26,18 @@ return { -- Autoformat
       yaml       = { { 'prettierd', 'prettier' } },
       markdown   = { { 'prettierd', 'prettier' } },
     },
+    notify_on_error = false,
+    -- Set up format-on-save
+    -- format_on_save = { timeout_ms = 500, lsp_fallback = true },
+    -- Customize formatters
+    formatters = {
+      shfmt = {
+        prepend_args = { '-i', '2' },
+      },
+    },
   },
+  init = function()
+    -- If you want the formatexpr, here is the place to set it
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
 }

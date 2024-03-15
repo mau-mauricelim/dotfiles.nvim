@@ -167,6 +167,11 @@ vim.keymap.set('n', '<Leader>ve',
 vim.keymap.set('n', '<Leader>dd', '^d$a', { desc = 'Delete line and insert' })
 -- Delete all lines and insert
 vim.keymap.set('n', '<Leader>da', 'ggdGi', { desc = '[D]elete [A]ll lines and insert' })
+-- Delete all lines above including current line and insert
+vim.keymap.set('n', '<Leader>dg', 'kdgg^d$a', { desc = '[D]elete all lines above and insert' })
+-- Delete all lines below including current line and insert
+vim.keymap.set('n', '<Leader>dG', '^vG$dzzi', { desc = '[D]elete all lines below and insert' })
+
 -- Search and replace the word under the cursor
 vim.keymap.set('n', '<Leader>sr', [[:%s/<C-r><C-w>//g<Left><Left>]], { desc = '[S]earch and [R]eplace the word under the cursor' })
 

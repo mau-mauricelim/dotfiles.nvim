@@ -13,8 +13,12 @@
 return { -- highlight and search for todo comments
   'folke/todo-comments.nvim',
   event = 'VeryLazy',
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'navarasu/onedark.nvim',
+  },
   config = function()
+    local colors = require("colors")
     require('todo-comments').setup({
       -- keywords recognized as todo comments
       keywords = {
@@ -34,18 +38,17 @@ return { -- highlight and search for todo comments
       -- list of named colors where we try to extract the guifg from the
       -- list of highlight groups or use the hex color if hl not found as a fallback
       colors = {
-        -- based on onedark.nvim "cool" style colors
-        error   = { '#EF5F6B' }, -- red
-        warning = { '#D99A5E' }, -- orange
-        hack    = { '#EBC275' }, -- yellow
-        perf    = { '#97CA72' }, -- green
-        todo    = { '#5AB0F6' }, -- blue
-        hint    = { '#4DBDCB' }, -- cyan
-        test    = { '#CA72E4' }, -- purple
-        default = { '#7D899F' }, -- light grey
+        error   = { colors.red },
+        warning = { colors.orange },
+        hack    = { colors.yellow },
+        perf    = { colors.green },
+        todo    = { colors.blue },
+        hint    = { colors.cyan },
+        test    = { colors.purple },
+        default = { colors.light_grey },
       },
     })
     vim.keymap.set('n', '[t', function() require('todo-comments').jump_prev() end, { desc = 'Go to previous [T]odo comment' })
     vim.keymap.set('n', ']t', function() require('todo-comments').jump_next() end, { desc = 'Go to next [T]odo comment' })
-  end
+  end,
 }

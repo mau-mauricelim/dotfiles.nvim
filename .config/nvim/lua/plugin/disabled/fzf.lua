@@ -8,5 +8,5 @@ return { -- fzf/Vim integration
   config = function()
     -- Customizing commands for fzf.vim
     vim.cmd('command! -bang -nargs=* Rg call fzf#vim#grep("rg --hidden --glob \'!.git\' --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)')
-  end
+  end,
 }

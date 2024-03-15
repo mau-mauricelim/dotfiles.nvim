@@ -110,6 +110,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- vim.keymap.set('n', '<leader>sr',       builtin.resume,      { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.',       builtin.oldfiles,    { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers,     { desc = '[ ] Find existing buffers' })
+    -- Search current file with fuzzy finder
+    vim.keymap.set('n', '<leader>sbf',      builtin.current_buffer_fuzzy_find,
+                                                                 { desc = '[S]earch current [B]uffer [F]uzzy' })
+    -- Search current file with live_grep (allows regex)
+    vim.keymap.set('n', '<leader>sbg',      builtin.({search_dirs={vim.fn.expand("%:p")}}),
+                                                                 { desc = '[S]earch current [B]uffer [G]rep' })
 
     -- Function to search for files with path
     Files = function(path) builtin.find_files({ cwd = path }) end

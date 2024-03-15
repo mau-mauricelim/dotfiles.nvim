@@ -54,23 +54,6 @@ return { -- Collection of various small independent plugins/modules
     -- "Enter" to jump within visible lines via iterative label filtering
     require('mini.jump2d').setup()
 
-    -- Window with buffer text overview, scrollbar, and highlights
-    -- Pure scrollbar config
-    require('mini.map').setup({
-      -- Customize `symbols` to your liking
-      window = {
-        -- Set this to the maximum width of your scroll symbols
-        width = 1,
-        -- Set this to your liking. Try values 0, 25, 50, 75, 100
-        winblend = 100,
-        -- Don't need extra column
-        show_integration_count = false,
-      }
-    })
-    vim.keymap.set('n', '<Leader>mt', MiniMap.toggle, { desc = '[M]iniMap [T]oggle' })
-    -- autoopen functionality
-    vim.cmd('autocmd vimenter * lua MiniMap.open()')
-
     -- Move any selection in any direction
     -- Defaults are Alt (Meta) + hjkl
     require('mini.move').setup()

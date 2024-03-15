@@ -2,4 +2,5 @@
 vim.keymap.set('i', '`', '`', { buffer = 0 })
 
 -- Autocompletion and signature help plugin
-require('mini.completion').setup()
+local status_ok, mini_completion = pcall(require, 'mini.completion')
+if status_ok then mini_completion.setup() end
