@@ -1,3 +1,4 @@
+-- stylua: ignore
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   event = 'VeryLazy',
@@ -8,7 +9,7 @@ return { -- Collection of various small independent plugins/modules
     --  - va)  - [V]isually select [A]round [)]paren
     --  - yinq - [Y]ank [I]nside [N]ext [']quote
     --  - ci'  - [C]hange [I]nside [']quote
-    require('mini.ai').setup { n_lines = 500 }
+    require('mini.ai').setup({ n_lines = 500 })
 
     -- Align text interactively
     --
@@ -22,7 +23,7 @@ return { -- Collection of various small independent plugins/modules
 
     -- Highlight patterns in text
     -- Helper functions to get pattern for standalone texts in upper, sentence and lower case
-    local function standalone(text) '%f[%w]()' .. text .. '()%f[%W]' end
+    local function standalone(text) return '%f[%w]()' .. text .. '()%f[%W]' end
     local function getPattern(texts)
       local pattern = {}
       for _, text in ipairs(texts) do
@@ -49,6 +50,33 @@ return { -- Collection of various small independent plugins/modules
       },
     })
 
+    -- Visualize and work with indent scope
+    require('mini.indentscope').setup({
+      symbol = "│",
+      options = { try_as_border = true },
+      draw = { animation = function() return 0 end }
+    })
+    -- Toggle indent scope
+    vim.keymap.set('n', '<Leader>is', '<cmd>lua vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable<CR>',
+      { desc = 'Toggle [I]ndent [S]cope', silent = true })
+    -- Toggle all indent lines and scope
+    local toggleIndent = function()
+      local ibl = require('ibl')
+      local conf = require('ibl.config')
+      local anyEnabled = (not vim.g.miniindentscope_disable) or conf.get_config(-1).enabled
+      if anyEnabled then
+        vim.notify('Disabling all indent lines and scope')
+        ibl.update({ enabled = false })
+        vim.g.miniindentscope_disable = true
+      else
+        vim.notify('Enabling all indent lines and scope')
+        ibl.update({ enabled = true })
+        vim.g.miniindentscope_disable = false
+      end
+    end
+    vim.keymap.set('n', '<Leader>ia', toggleIndent,
+      { desc = 'Toggle [I]ndent [A]ll', silent = true })
+
     -- "f, F, t, T, ;" to Jump to next/previous single character
     require('mini.jump').setup()
     -- "Enter" to jump within visible lines via iterative label filtering
@@ -72,6 +100,14 @@ return { -- Collection of various small independent plugins/modules
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+  end,
+  init = function()
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'help', 'dashboard', 'lazy', 'mason', 'notify', 'toggleterm', 'lazyterm' },
+      callback = function()
+        vim.b.miniindentscope_disable = true
+      end,
+    })
   end,
 }
 

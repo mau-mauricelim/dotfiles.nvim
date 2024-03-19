@@ -152,10 +152,10 @@ vim.keymap.set('n', '<Leader>vb', '<C-v>', { desc = '[V]isual [Block] mode' })
 vim.keymap.set('n', '<Leader>ve',
   function()
     if vim.o.virtualedit == 'onemore' then
-      print('virtualedit=all')
+      vim.notify('virtualedit=all')
       vim.opt.virtualedit = 'all'
     else
-      print('virtualedit=onemore')
+      vim.notify('virtualedit=onemore')
       vim.opt.virtualedit = 'onemore'
     end
   end,

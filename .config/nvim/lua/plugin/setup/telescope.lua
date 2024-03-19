@@ -114,7 +114,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sbf',      builtin.current_buffer_fuzzy_find,
                                                                  { desc = '[S]earch current [B]uffer [F]uzzy' })
     -- Search current file with live_grep (allows regex)
-    vim.keymap.set('n', '<leader>sbg',      builtin.({search_dirs={vim.fn.expand("%:p")}}),
+    vim.keymap.set('n', '<leader>sbg',
+      ':lua require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })<CR>',
                                                                  { desc = '[S]earch current [B]uffer [G]rep' })
 
     -- Function to search for files with path

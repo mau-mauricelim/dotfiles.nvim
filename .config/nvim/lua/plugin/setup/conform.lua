@@ -3,13 +3,15 @@ return { -- Autoformat
   -- event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   keys = {
-    { '<leader>fb',
+    { 
+      '<leader>fb',
       function() require('conform').format({ async = true, lsp_fallback = true }) end,
       desc = '[F]ormat [b]uffer',
     },
   },
   opts = {
     -- Define your formatters
+    -- stylua: ignore
     formatters_by_ft = {
       lua    = { 'stylua' },
       -- Conform can also run multiple formatters sequentially
@@ -18,8 +20,7 @@ return { -- Autoformat
       bash   = { 'shfmt', 'shellcheck' },
       zsh    = { 'shfmt', 'shellcheck' },
       --
-      -- You can use a sub-list to tell conform to run *until* a formatter
-      -- is found.
+      -- You can use a sub-list to tell conform to run *until* a formatter is found
       javascript = { { 'prettierd', 'prettier' } },
       html       = { { 'prettierd', 'prettier' } },
       json       = { { 'prettierd', 'prettier' } },
@@ -38,6 +39,6 @@ return { -- Autoformat
   },
   init = function()
     -- If you want the formatexpr, here is the place to set it
-    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    vim.o.formatexpr = 'v:lua.require"conform".formatexpr()'
   end,
 }

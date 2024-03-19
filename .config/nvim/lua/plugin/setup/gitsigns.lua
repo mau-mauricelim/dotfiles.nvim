@@ -5,22 +5,15 @@
 -- See `:help gitsigns` to understand what the configuration keys do
 return { -- Adds git related signs to the gutter, as well as utilities for managing changes
   'lewis6991/gitsigns.nvim',
-  opts = {
-    signs = {
-      add = { text = '+' },
-      change = { text = '~' },
-      delete = { text = '_' },
-      topdelete = { text = '‾' },
-      changedelete = { text = '~' },
-    },
-  },
+  event = 'VeryLazy',
   config = function()
-    require('gitsigns').setup {
+    require('gitsigns').setup({
+      -- stylua: ignore
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
+        add          = { text = '+' },
+        change       = { text = '~' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
@@ -61,8 +54,8 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
         map('n', '<leader>td', gs.toggle_deleted)
 
         -- Text object
-        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
       end,
-    }
+    })
   end,
 }

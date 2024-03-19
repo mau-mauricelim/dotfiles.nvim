@@ -33,9 +33,9 @@ return { -- Autocompletion
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
-    luasnip.config.setup {}
+    luasnip.config.setup()
 
-    cmp.setup {
+    cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -87,6 +87,6 @@ return { -- Autocompletion
         { name = 'luasnip' },
         { name = 'path' },
       },
-    }
+    })
   end,
 }

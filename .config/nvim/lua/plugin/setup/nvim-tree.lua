@@ -6,7 +6,7 @@ return {
   event = 'VeryLazy',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
-    vim.keymap.set('n', '<C-o>', ':NvimTreeFindFileToggle<CR>')
+    vim.keymap.set('n', '<C-o>', ':NvimTreeFindFileToggle<CR>', { silent = true })
 
     -- pass to setup along with your other options
     require('nvim-tree').setup({

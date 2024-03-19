@@ -8,12 +8,13 @@ return {
   },
   config = function()
     -- Leave only search marks and disable virtual text
-    require("scrollbar.handlers.search").setup({
+    require('scrollbar.handlers.search').setup({
         override_lens = function() end,
     })
-    local colors = require("colors")
-    require("scrollbar").setup({
+    local colors = require('colors')
+    require('scrollbar').setup({
         handle = { color = colors.bg0 },
+        -- stylua: ignore
         marks = {
             Error  = { color = colors.red },
             Warn   = { color = colors.orange },

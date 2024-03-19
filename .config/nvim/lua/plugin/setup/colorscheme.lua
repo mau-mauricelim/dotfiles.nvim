@@ -8,9 +8,9 @@ return { -- You can easily change to a different colorscheme.
   priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
     -- Setup if any
-    require('onedark').setup {
+    require('onedark').setup({
       style = 'cool',
-    }
+    })
 
     -- Load the colorscheme here
     vim.cmd.colorscheme('onedark')

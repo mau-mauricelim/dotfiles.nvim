@@ -18,7 +18,7 @@ return { -- highlight and search for todo comments
     'navarasu/onedark.nvim',
   },
   config = function()
-    local colors = require("colors")
+    local colors = require('colors')
     require('todo-comments').setup({
       -- keywords recognized as todo comments
       keywords = {
