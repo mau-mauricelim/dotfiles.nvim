@@ -2,10 +2,7 @@
 return {
   'petertriho/nvim-scrollbar',
   event = 'VeryLazy',
-  dependencies = {
-    'kevinhwang91/nvim-hlslens',
-    'navarasu/onedark.nvim',
-  },
+  dependencies = { 'kevinhwang91/nvim-hlslens' },
   config = function()
     -- Leave only search marks and disable virtual text
     require('scrollbar.handlers.search').setup({

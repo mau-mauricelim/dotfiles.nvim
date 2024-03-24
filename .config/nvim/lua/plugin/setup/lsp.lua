@@ -8,7 +8,14 @@ return { -- LSP Configuration & Plugins
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
+    {
+      'j-hui/fidget.nvim',
+      opts = {
+        integration = {
+          ["nvim-tree"] = { enable = false }, -- Disable integration unless nvim-tree is loaded
+        },
+      },
+    },
   },
   config = function()
     -- Brief Aside: **What is LSP?**
@@ -167,6 +174,8 @@ return { -- LSP Configuration & Plugins
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
+            -- Disable progress bar
+            window = { progressBar = false },
           },
         },
       },

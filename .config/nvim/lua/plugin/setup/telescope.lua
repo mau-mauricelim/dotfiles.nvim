@@ -7,6 +7,8 @@
 --
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
+  -- you can use the VeryLazy event for things that can
+  -- load later and are not important for the initial UI
   event = 'VeryLazy',
   branch = '0.1.x',
   dependencies = {
@@ -115,7 +117,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
                                                                  { desc = '[S]earch current [B]uffer [F]uzzy' })
     -- Search current file with live_grep (allows regex)
     vim.keymap.set('n', '<leader>sbg',
-      ':lua require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })<CR>',
+      '<cmd>lua require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })<CR>',
                                                                  { desc = '[S]earch current [B]uffer [G]rep' })
 
     -- Function to search for files with path

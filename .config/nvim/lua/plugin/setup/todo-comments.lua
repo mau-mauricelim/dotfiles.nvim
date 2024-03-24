@@ -13,10 +13,7 @@
 return { -- highlight and search for todo comments
   'folke/todo-comments.nvim',
   event = 'VeryLazy',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'navarasu/onedark.nvim',
-  },
+  dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local colors = require('colors')
     require('todo-comments').setup({

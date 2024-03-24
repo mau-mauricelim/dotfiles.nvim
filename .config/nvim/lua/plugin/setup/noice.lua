@@ -4,8 +4,6 @@ return { -- UI for messages, cmdline and the popupmenu
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module='...'` entries
     'MunifTanjim/nui.nvim',
-    -- Show @recording messages in the statusline
-    'nvim-lualine/lualine.nvim',
     -- OPTIONAL:
     --   `nvim-notify` is only needed, if you want to use the notification view.
     --   If not available, we use `mini` as the fallback
@@ -33,17 +31,21 @@ return { -- UI for messages, cmdline and the popupmenu
     })
     -- Dismiss Noice Message
     vim.keymap.set('n', '<leader>nd', '<cmd>NoiceDismiss<CR>', { desc = 'Dismiss Noice Message' })
+
     -- Show @recording messages in the statusline
-    require('lualine').setup({
-      sections = {
-        lualine_x = {
-          {
-            noice.api.statusline.mode.get,
-            cond = noice.api.statusline.mode.has,
-            color = { fg = '#ff9e64' },
+    local status_ok, lualine = pcall(require, 'lualine')
+    if status_ok then
+      lualine.setup({
+        sections = {
+          lualine_x = {
+            {
+              noice.api.statusline.mode.get,
+              cond = noice.api.statusline.mode.has,
+              color = { fg = '#ff9e64' },
+            },
           },
         },
-      },
-    })
+      })
+    end
   end,
 }

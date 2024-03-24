@@ -23,6 +23,7 @@ zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' keep-prefix true
+zstyle ':completion:*' list-dirs-first true
 
 # Display format
 zstyle ':completion:*'                   format '%F{yellow}-- %d --%f'
@@ -41,3 +42,7 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 
 # See ZSHCOMPWID "completion matching control"
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Use tab to complete menu select
+zmodload -i zsh/complist
+bindket -M menuselect '^i' .expand-or-complete-prefix

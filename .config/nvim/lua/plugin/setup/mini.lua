@@ -94,6 +94,9 @@ return { -- Collection of various small independent plugins/modules
     -- Minimal and fast autopairs
     require('mini.pairs').setup()
 
+    -- "gS" to Toggle split and join arguments
+    require('mini.splitjoin').setup()
+
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     --
     -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren

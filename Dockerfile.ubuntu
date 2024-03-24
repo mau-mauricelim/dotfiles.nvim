@@ -44,8 +44,8 @@ RUN yes | unminimize >/dev/null 2>&1 && \
         mkdir -p /etc/sudoers.d && \
         echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
         chmod 0440 /etc/sudoers.d/$USERNAME && \
-    # Set default user for WSL
-    echo -e "[user]\ndefault=$USERNAME" >> /etc/wsl.conf
+    # Set default user for WSL and Network settings
+    echo -e "[user]\ndefault=$USERNAME\n[network]generateResolvConf = false" >> /etc/wsl.conf
 
 # Set default user
 USER $USERNAME

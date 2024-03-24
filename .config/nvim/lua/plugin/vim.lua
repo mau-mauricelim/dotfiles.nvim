@@ -40,6 +40,8 @@ vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
+--- Set colorcolumn
+-- vim.opt.colorcolumn = '120'
 
 -- Decrease update time
 vim.opt.updatetime = 100 -- suggested by airblade/vim-gitgutter
@@ -131,6 +133,9 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 
 -- Remap C-c to Esc
 vim.keymap.set('i', '<C-c>', '<Esc>')
+
+-- Remap Home to toggle between start of line and first non-blank space
+vim.keymap.set({ 'n', 'i', 'v' }, '<Home>', 'charcol(".") ==  1 ? "^" : "0"', { expr = true, silent = true })
 
 -- Save file
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
