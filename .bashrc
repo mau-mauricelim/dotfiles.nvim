@@ -38,6 +38,8 @@ if ! shopt -oq posix; then
     elif [ -f /etc/bash_completion ]; then
         source /etc/bash_completion
     fi
+    # awk '{ print $1 $2 }'
+    complete -W "\'{\ print\ \$\1\,\ \$\2\ }\'" awk
 fi
 
 # zoxide

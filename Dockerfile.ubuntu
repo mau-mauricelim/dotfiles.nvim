@@ -32,6 +32,12 @@ RUN yes | unminimize >/dev/null 2>&1 && \
         chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list && \
         apt-get -qq update && \
         apt-get -qq install -y --no-install-recommends eza && \
+    # Install lazygit
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+        curl -sLo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
+        tar xf lazygit.tar.gz lazygit && \
+        sudo install lazygit /usr/local/bin && \
+        rm lazygit lazygit.tar.gz && \
     # Clean up
     apt-get -qq remove gpg ca-certificates && \
         apt-get -qq autoremove -y && \
@@ -45,7 +51,7 @@ RUN yes | unminimize >/dev/null 2>&1 && \
         echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
         chmod 0440 /etc/sudoers.d/$USERNAME && \
     # Set default user for WSL and Network settings
-    echo -e "[user]\ndefault=$USERNAME\n[network]generateResolvConf = false" >> /etc/wsl.conf
+    echo -e "[user]\ndefault=$USERNAME" >> /etc/wsl.conf
 
 # Set default user
 USER $USERNAME

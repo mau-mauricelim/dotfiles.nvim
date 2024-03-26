@@ -15,6 +15,8 @@ Features:
 | Commenting                                 | Comment.nvim          |                                                                                                                                                                           |
 | Formatter                                  | conform.nvim          |                                                                                                                                                                           |
 | Git integration                            | gitsigns.nvim         |                                                                                                                                                                           |
+|                                            | vim-fugitive          |                                                                                                                                                                           |
+|                                            | lazygit.nvim          |                                                                                                                                                                           |
 | Indenting                                  | indent-blankline.nvim |                                                                                                                                                                           |
 | LSP config                                 | nvim-lspconfig        | mason.nvim<br>mason-lspconfig.nvim<br>mason-tool-installer.nvim<br>fidget.nvim                                                                                            |
 | Status line                                | lualine.nvim          | nvim-web-devicons                                                                                                                                                         |
@@ -28,6 +30,7 @@ Features:
 | Terminal manager                           | toggleterm.nvim       |                                                                                                                                                                           |
 | Display possible key bindings              | which-key.nvim        |                                                                                                                                                                           |
 | Plugin manager                             | lazy.nvim             |                                                                                                                                                                           |
+| Markdown Preview                           | markdown-preview.nvim |                                                                                                                                                                           |
 
 > Inspired by kickstart.nvim
 
@@ -52,3 +55,4 @@ Features:
 - neovim
 - bash
 - fzf
+- lazygit

@@ -135,7 +135,8 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('i', '<C-c>', '<Esc>')
 
 -- Remap Home to toggle between start of line and first non-blank space
-vim.keymap.set({ 'n', 'i', 'v' }, '<Home>', 'charcol(".") ==  1 ? "^" : "0"', { expr = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Home>', 'charcol(".") ==  1 ? "^" : "0"', { expr = true, silent = true })
+vim.keymap.set('i', '<Home>', 'charcol(".") ==  1 ? "<Esc>^i" : "<Esc>0i"', { expr = true, silent = true })
 
 -- Save file
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
@@ -151,7 +152,7 @@ vim.keymap.set('n', '<C-n>', '<cmd>set nonu! nornu!<CR>', { desc = 'Toggle line 
 vim.keymap.set('n', '<Leader>gs', 'guiwv~', { desc = '[S]entence case word' })
 
 -- Visual block mode - suppress the default <C-c>/<C-v> mapping specifically for WSL
-vim.keymap.set('n', '<Leader>vb', '<C-v>', { desc = '[V]isual [Block] mode' })
+vim.keymap.set('n', '<Leader>vb', '<C-v>', { desc = '[V]isual [B]lock mode' })
 
 -- Toggle virtual edit mode between onemore and all
 vim.keymap.set('n', '<Leader>ve',
